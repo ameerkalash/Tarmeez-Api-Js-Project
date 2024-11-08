@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Import axios -->
+  <script src="./axios.min.js"></script>
+  <!-- Import Bootstrap -->
+  <link rel="stylesheet" href="./bootstrap.min.css">
+  <script src="./bootstrap.min.js"></script>
+  <title>Tarmeez Api Project</title>
+  <link rel="stylesheet" href="styles.css">
+
+</head>
+
+
+
+<body>
+  <!-- LOADER -->
+  <div class="box-of-loade" id="box-of-loade">
+    <div class="lds-ellipsis">
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+  </div>
+  <!-- //LOADER// -->
+
+  <!-- Loader Get Posts Scroling -->
+  <div class="loading loadingScroling" id="loadingScroling">
+    <h3>LOADING</h3>
+    <span class="one">.</span>
+    <span class="two">.</span>
+    <span class="three">.</span>
+  </div>
+  <!-- Loader Get Posts Scroling -->
+
+
+  <!-- MODALS -->
+  <!-- LOGIN MODAL -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">LOGIN</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="mb-3 username-section">
+              <label class="username-label" for="username" class="col-form-label">@</label>
+              <input type="text" placeholder="Username" class="form-control usernamee" id="username">
+            </div>
+            <div class="mb-3">
+              <input type="password" placeholder="password" class="form-control password"
+                id="password"></input>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" id="login">login</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- //LOGIN MODAL// -->
+
+  <!-- REGISTER MODAL -->
+  <div class="modal fade" id="exampleModalRegister" tabindex="-1" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">REGISTER</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="mb-3">
+              <label for="profileImage" class="col-form-label">Profile Image</label>
+              <input type="file" placeholder="Choose File" class="form-control" id="profileImage"></input>
+            </div>
+            <div class="mb-3">
+              <input type="text" placeholder="name" class="form-control" id="name"></input>
+            </div>
+            <div class="mb-3 username-section">
+              <label class="username-label" for="username" class="col-form-label">@</label>
+              <input type="text" placeholder="Username" class="form-control usernamee" id="username-register">
+            </div>
+            <div class="mb-3">
+              <input type="password" placeholder="password" class="form-control password"
+                id="password-register"></input>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" id="register">register</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- //REGISTER MODAL// -->
+
+  <!-- ADD POST MODAL -->
+  <div class="modal fade" id="exampleModalAddPost" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabelEditPost">NEW POST</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="mb-3">
+              <input type="text" placeholder="Title" class="form-control" id="titlePost"></input>
+            </div>
+            <div class="mb-3 username-section">
+              <textarea placeholder="What's New?" class="form-control usernamee" id="bodyAddPost"></textarea>
+            </div>
+            <div class="mb-3">
+              <label for="profileImage" class="col-form-label">Post Image</label>
+              <input type="file" placeholder="Choose File" class="form-control" id="profileImageAddPost"></input>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" id="post">Post</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- //ADD POST MODAL// -->
+
+  <!-- Delete Post Warning -->
+  <div id="deletePostModalWarning" class="modal" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Warning</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p>Are You Sure You Want Delete This Post ?</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-danger" onclick="deletePostEvent()" id="sureDeletePost">Delete</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- //Delete Post Warning// -->
+  <!-- //MODALS// -->
+
+  <!-- ADD POST BUTTON -->
+  <div class="boxOfAddPost" id="boxOfAddPost">
+    <button type="button" id="addpost" class="btn" onclick="addPostBtnClicked()">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-square-fill"
+        viewBox="0 0 16 16">
+        <path
+          d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm6.5 4.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3a.5.5 0 0 1 1 0" />
+      </svg>
+      <span>ADD POST</span>
+    </button>
+  </div>
+  <!-- //ADD POST BUTTON// -->
+
+  <!-- NAV -->
+  <div class="container fix-nav">
+    <div class="d-flex justify-content-center">
+      <div class="col-10">
+        <nav class="navbar navbar-expand-lg">
+          <div class="container-fluid">
+            <a class="navbar-brand" href="index.html">Tarmeez</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+              aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+              <div class="navbar-nav">
+                <a class="nav-link" id="nav-link" href="./profile.html?Sure=1">Profile</a>
+              </div>
+            </div>
+          </div>
+          <!-- LOGGED IN USER -->
+          <div class="btn-nav" id="btn-nav-login">
+            <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal"
+              class="btn btn-outline-success">Login</button>
+            <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModalRegister"
+              class="btn btn-outline-success">Register</button>
+          </div>
+          <!-- //LOGGED IN USER// -->
+          <div class="boxProfileInfo" id="boxProfileInfo">
+            <!-- PROFILE INFO -->
+            <div class="profileinfo" id="profileinfo">
+            </div>
+            <!-- //PROFILE INFO// -->
+            <!-- LOG OUT USER -->
+            <div class="btn-nav" id="btn-nav-logout">
+              <button type="button" id="logout" class="btn btn-outline-danger">Log out</button>
+            </div>
+            <!-- //LOG OUT USER// -->
+          </div>
+        </nav>
+      </div>
+    </div>
+  </div>
+  <!-- END NAV -->
+
+  <!-- LOGIN-ALERT -->
+  <div class="alert-note fade show" id="alert"></div>
+  <!-- //LOGIN-ALERT// -->
+
+  <!-- CONTENT -->
+  <div class="container">
+    <div class="d-flex justify-content-center">
+      <div class="col-10">
+        <!-- Posts -->
+        <div id="posts" class="mt-5 mb-5 posts">
+          <!-- <div class="card">
+            <div class="card-header">
+              <img class="img-header-post" src="./img/header post/skills-01.jpg">
+              <span class="username">@ameer</span>
+            </div>
+            <div class="card-body">
+              <img src="./img/body post/A1bktGRAovL.png" class="img-body">
+              <p class="time-ago-post">2 min ago</p>
+              <h5 class="title-body">Hello World</h5>
+              <p class="content-post">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sunt omnis nostrum animi
+                neque, similique voluptatum magnam obcaecati tempore quas fugit?</p>
+              <hr>
+              <div class="comment-count" id="comment-count">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pen"
+                  viewBox="0 0 16 16">
+                  <path
+                    d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001m-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708z" />
+                </svg>
+                <span>
+                  (3) Coments
+                </span>
+                <span class="tag" id="tag">Policy</span>
+              </div>
+            </div>
+          </div> -->
+          <div class="loading">
+            <h3>LOADING</h3>
+            <span class="one">.</span>
+            <span class="two">.</span>
+            <span class="three">.</span>
+          </div>
+          <!--// Posts //-->
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- END CONTENT -->
+
+  <script src="./mainLogic.js"></script>
+  <script src="main.js"></script>
+</body>
+
+</html>
